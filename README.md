@@ -1,3 +1,4 @@
-# JSF Application
+Calculator Example
+==================
 
-This is a sample JSF application
+A JSF/CDI example of a web-based calculator.
