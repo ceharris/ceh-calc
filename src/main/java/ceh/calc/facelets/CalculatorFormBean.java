@@ -2,39 +2,27 @@ package ceh.calc.facelets;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import ceh.calc.service.CalculatorService;
+import ceh.calc.service.Operator;
 
 @Named
 @RequestScoped
 public class CalculatorFormBean implements Serializable {
 
-  public enum Operator {
-    ADD,
-    SUBTRACT,
-    MULTIPLY,
-    DIVIDE;
-  }
-  
   private static final long serialVersionUID = 8776615110210159639L;
 
+  @Inject
+  protected CalculatorService calculatorService;
+  
   private Double leftOperand;
   private Double rightOperand;
   private Operator operator;
   private Double result;
 
-  @PostConstruct
-  public void init() {
-    System.out.println("created " + this);
-  }
-  
-  @PreDestroy
-  public void destroy() {
-    System.out.println("destroying " + this);    
-  }
-  
   public Double getLeftOperand() {
     return leftOperand;
   }
@@ -68,24 +56,8 @@ public class CalculatorFormBean implements Serializable {
   }
 
   public String calculate() {
-//    System.out.format("%s(%s, %s)\n", operator, leftOperand, rightOperand);
-    result = doCalculate(operator, leftOperand, rightOperand);
+    result = calculatorService.calculate(operator, leftOperand, rightOperand);
     return null;
   }
 
-  private Double doCalculate(Operator op, Double a, Double b) {
-    switch (op) {
-      case ADD:
-        return a + b;
-      case SUBTRACT:
-        return a - b;
-      case MULTIPLY:
-        return a * b;
-      case DIVIDE:
-        return a / b;
-      default:
-        throw new IllegalArgumentException("unrecognized operator");
-    }
-  }
-  
 }
