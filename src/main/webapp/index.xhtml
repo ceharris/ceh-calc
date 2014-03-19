@@ -17,9 +17,8 @@
 <h:body>
   <h1>Calculator</h1>
   <h:form prependId="false">
-    <h:messages/>
     <p>
-      <h:inputText id="leftOperand" value="#{calculatorFormBean.leftOperand}" 
+      <h:inputText value="#{calculatorFormBean.leftOperand}" 
         required="true" requiredMessage="left operand is required"/>
       &nbsp;
       <h:selectOneMenu value="#{calculatorFormBean.operator}" required="true">
